@@ -1,0 +1,28 @@
+{
+  "files": {
+    "main.css": "/rose-app/public/static/css/main.b917aa30.chunk.css",
+    "main.js": "/rose-app/public/static/js/main.dee664e5.chunk.js",
+    "main.js.map": "/rose-app/public/static/js/main.dee664e5.chunk.js.map",
+    "runtime-main.js": "/rose-app/public/static/js/runtime-main.5967cb8d.js",
+    "runtime-main.js.map": "/rose-app/public/static/js/runtime-main.5967cb8d.js.map",
+    "static/css/2.800be05e.chunk.css": "/rose-app/public/static/css/2.800be05e.chunk.css",
+    "static/js/2.bcb7f881.chunk.js": "/rose-app/public/static/js/2.bcb7f881.chunk.js",
+    "static/js/2.bcb7f881.chunk.js.map": "/rose-app/public/static/js/2.bcb7f881.chunk.js.map",
+    "static/js/3.366234f2.chunk.js": "/rose-app/public/static/js/3.366234f2.chunk.js",
+    "static/js/3.366234f2.chunk.js.map": "/rose-app/public/static/js/3.366234f2.chunk.js.map",
+    "index.html": "/rose-app/public/index.html",
+    "static/css/2.800be05e.chunk.css.map": "/rose-app/public/static/css/2.800be05e.chunk.css.map",
+    "static/css/main.b917aa30.chunk.css.map": "/rose-app/public/static/css/main.b917aa30.chunk.css.map",
+    "static/js/2.bcb7f881.chunk.js.LICENSE.txt": "/rose-app/public/static/js/2.bcb7f881.chunk.js.LICENSE.txt",
+    "static/media/rose-orange.a33c491d.jpg": "/rose-app/public/static/media/rose-orange.a33c491d.jpg",
+    "static/media/rose-red.e5b708b6.jpg": "/rose-app/public/static/media/rose-red.e5b708b6.jpg",
+    "static/media/rose.2692de5d.jpg": "/rose-app/public/static/media/rose.2692de5d.jpg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.5967cb8d.js",
+    "static/css/2.800be05e.chunk.css",
+    "static/js/2.bcb7f881.chunk.js",
+    "static/css/main.b917aa30.chunk.css",
+    "static/js/main.dee664e5.chunk.js"
+  ]
+}
