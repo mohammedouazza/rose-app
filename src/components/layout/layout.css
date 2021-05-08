@@ -1,0 +1,7 @@
+.app-header {
+  height: 64px;
+}
+
+.app-content {
+  height: calc(100vh - 128px);
+}
