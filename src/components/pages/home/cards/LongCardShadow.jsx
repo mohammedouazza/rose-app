@@ -30,7 +30,6 @@ function LongCardShadow({ title, body, link, image }) {
           </div>
         </div>
       </div>
-      <div className="b-example-divider"></div>
     </>
   );
 }

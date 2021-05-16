@@ -1,17 +1,44 @@
 import React from "react";
 import { Container, Nav, Navbar } from "react-bootstrap";
+import { Link, useLocation } from "react-router-dom";
 
 function Header() {
+  let location = useLocation();
+  console.log(location);
   return (
     <Navbar className="app-header" fixed="top" expand="lg">
       <Container>
-        <Navbar.Brand href="#home">Rose</Navbar.Brand>
+        <Link to="/" className="navbar-brand">
+          Rose
+        </Link>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="container text-center">
-            <Nav.Link href="#home">Acceuil</Nav.Link>
-            <Nav.Link href="#produits">Produits</Nav.Link>
-            <Nav.Link href="#contact">Contact</Nav.Link>
+            <Link
+              to="/"
+              className={
+                "nav-link " + (location.pathname === "/" ? "active" : "")
+              }
+            >
+              Acceuil
+            </Link>
+            <Link
+              to="/products"
+              className={
+                "nav-link " +
+                (location.pathname === "/products" ? "active" : "")
+              }
+            >
+              Produits
+            </Link>
+            <Link
+              to="/contact"
+              className={
+                "nav-link " + (location.pathname === "/contact" ? "active" : "")
+              }
+            >
+              Contact
+            </Link>
           </Nav>
         </Navbar.Collapse>
       </Container>
