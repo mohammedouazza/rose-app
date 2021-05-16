@@ -28,7 +28,6 @@ function Home() {
         link="Contactez nous"
         image={RoseOrangeImg}
       />
-      <LongCardForm />
     </>
   );
 }
