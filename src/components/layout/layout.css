@@ -1,7 +1,18 @@
 .app-header {
   height: 64px;
+  background-color: rgb(249 127 187);
 }
 
 .app-content {
-  height: calc(100vh - 128px);
+  margin-top: 64px;
+  min-height: calc(100vh - 128px);
+}
+
+.app-footer {
+  background-color: rgb(249 127 187);
+  height: 64px;
+}
+
+.long-card {
+  background-color: rgb(212, 212, 212);
 }

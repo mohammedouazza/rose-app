@@ -1,15 +1,21 @@
 import React from "react";
-import { Container, Row, Col } from "react-bootstrap";
+import { Container, Nav, Navbar } from "react-bootstrap";
 
 function Header() {
   return (
-    <div className="app-header">
+    <Navbar className="app-header" fixed="top" expand="lg">
       <Container>
-        <Row>
-          <Col>1 of 1</Col>
-        </Row>
+        <Navbar.Brand href="#home">Rose</Navbar.Brand>
+        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <Navbar.Collapse id="basic-navbar-nav">
+          <Nav className="container text-center">
+            <Nav.Link href="#home">Acceuil</Nav.Link>
+            <Nav.Link href="#produits">Produits</Nav.Link>
+            <Nav.Link href="#contact">Contact</Nav.Link>
+          </Nav>
+        </Navbar.Collapse>
       </Container>
-    </div>
+    </Navbar>
   );
 }
 
