@@ -1,33 +1,23 @@
 import React from "react";
 import { Button, Card } from "react-bootstrap";
+import PlusIcon from "../../../images/plus-icon.svg.png";
 
-function SingleProduct({ product }) {
+function AddProduct() {
   return (
     <Card style={{ width: "18rem" }} className="mt-2 mb-2">
       <Card.Img
         variant="top"
-        src={product.img}
-        title={`Prix : ${product.price}, type : ${product.type}`}
+        src={PlusIcon}
+        title="Ajouter un produit"
         style={{ cursor: "pointer" }}
       />
       <Card.Body>
-        <Card.Title>{product.name}</Card.Title>
-        {product.price && (
-          <Card.Text>
-            <p>
-              Prix : <strong>{product.price}</strong>
-            </p>
-            <p>
-              Type : <strong>{product.type}</strong>
-            </p>
-          </Card.Text>
-        )}
-        <Button variant="primary">
-          {product.price ? "Commender" : "Ajouter"}
-        </Button>
+        <Card.Title>Ajouter un produit</Card.Title>
+        <Card.Text></Card.Text>
+        <Button variant="primary">Ajouter</Button>
       </Card.Body>
     </Card>
   );
 }
 
-export default SingleProduct;
+export default AddProduct;
