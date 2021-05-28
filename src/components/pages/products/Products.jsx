@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Col, Row, Alert } from "react-bootstrap";
+import { Col, Row, Alert, Container } from "react-bootstrap";
 import { connect } from "react-redux";
 import { getProductsCollection } from "../../../back-end/poducts";
 import SingleProduct from "./SingleProduct";
@@ -12,10 +12,12 @@ import {
 
 const Products = ({ status, products, getProducts }) => {
   useEffect(() => {
-    getProducts();
+    if (!products.length) {
+      getProducts();
+    }
   });
   return (
-    <>
+    <Container>
       {status === "loading" && <Alert>Loading...</Alert>}
       <Row>
         {!products.length && (
@@ -32,7 +34,7 @@ const Products = ({ status, products, getProducts }) => {
           </Col>
         ))}
       </Row>
-    </>
+    </Container>
   );
 };
 

@@ -11,7 +11,7 @@ function LongCardShadow({ title, body, link, image }) {
             <div className="d-grid gap-2 d-md-flex justify-content-md-start mb-4 mb-lg-3">
               <button
                 type="button"
-                className="btn btn-primary btn-lg px-4 me-md-2 fw-bold"
+                className="btn btn-primary btn-lg px-4 me-md-2 fw-bold send-button"
               >
                 {link}
               </button>

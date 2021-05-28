@@ -9,7 +9,7 @@ function LongCardCentered({ title, body, link, image }) {
         <div className="d-grid gap-2 d-sm-flex justify-content-sm-center mb-5">
           <button
             type="button"
-            className="btn btn-outline-secondary btn-lg px-4"
+            className="btn btn-primary btn-lg px-4 send-button"
           >
             {link}
           </button>

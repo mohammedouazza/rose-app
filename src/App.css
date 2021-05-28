@@ -1,5 +1,6 @@
 .send-button {
-  background-color: rgb(249 127 187);
+  background-color: rgb(249 127 187) !important;
+  border: rgb(249 127 187) !important;
 }
 
 .active {
