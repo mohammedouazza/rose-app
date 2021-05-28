@@ -1,12 +1,24 @@
 import React from "react";
 import { Button, Card } from "react-bootstrap";
+import { connect } from "react-redux";
 import { useLocation } from "react-router-dom";
+import { deleteProductFromCollection } from "../../../back-end/poducts";
+import {
+  DELETE_PRODUCT,
+  INIT_STATUS,
+  SET_STATUS_LOADING,
+} from "../../../constants/products";
 
-function SingleProduct({ product }) {
+function SingleProduct({ product, deletePrductStore }) {
   const location = useLocation();
   const goToProduct = () => {
     if (product.id === "add") {
       location.pathname = "/products/create";
+    }
+  };
+  const deleteProduct = () => {
+    if (window.confirm("Etes-vous sûr de vouloir supprimer ce produit ?")) {
+      deletePrductStore(product);
     }
   };
   return (
@@ -21,20 +33,39 @@ function SingleProduct({ product }) {
         <Card.Title>{product.name}</Card.Title>
         {product.price && (
           <Card.Text>
-            <p>
+            <span>
               Prix : <strong>{product.price}</strong>
-            </p>
-            <p>
+            </span>
+            <br />
+            <span>
               Type : <strong>{product.type}</strong>
-            </p>
+            </span>
           </Card.Text>
         )}
         <Button variant="primary" onClick={goToProduct}>
           {product.price ? "Commender" : "Ajouter"}
+        </Button>
+        <Button
+          variant="danger"
+          onClick={deleteProduct}
+          style={{ marginLeft: 10 }}
+        >
+          Supprimer
         </Button>
       </Card.Body>
     </Card>
   );
 }
 
-export default SingleProduct;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    deletePrductStore: (product) => {
+      dispatch({ type: SET_STATUS_LOADING });
+      deleteProductFromCollection(product).then(() => {
+        dispatch({ type: DELETE_PRODUCT, payload: product });
+        dispatch({ type: INIT_STATUS });
+      });
+    },
+  };
+};
+export default connect(null, mapDispatchToProps)(SingleProduct);

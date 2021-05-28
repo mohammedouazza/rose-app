@@ -1,36 +1,40 @@
 import React, { useEffect } from "react";
-import { Col, Container, Row, Alert } from "react-bootstrap";
+import { Col, Row, Alert } from "react-bootstrap";
 import { connect } from "react-redux";
 import { getProductsCollection } from "../../../back-end/poducts";
 import SingleProduct from "./SingleProduct";
 import { Link } from "react-router-dom";
+import {
+  INIT_STATUS,
+  SET_PRODUCTS,
+  SET_STATUS_LOADING,
+} from "../../../constants/products";
 
-function Products({ status, products, getProducts }) {
-  console.log(products);
+const Products = ({ status, products, getProducts }) => {
   useEffect(() => {
     getProducts();
-  }, [getProducts]);
+  });
   return (
-    <Container>
-      {status === "loading" && <p>Loading...</p>}
+    <>
+      {status === "loading" && <Alert>Loading...</Alert>}
       <Row>
         {!products.length && (
           <Col className="mt-2">
             <Alert variant="info">
-              Aucun produit à afficher, veuillez en ajouter{" "}
+              Aucun produit à afficher, veuillez en ajouter
               <Link to="/products/create">Ici</Link>
             </Alert>
           </Col>
         )}
         {products.map((product, index) => (
-          <Col key={index} xs={3}>
+          <Col key={index} md={4} lg={3} xs={12}>
             <SingleProduct product={product} />
           </Col>
         ))}
       </Row>
-    </Container>
+    </>
   );
-}
+};
 
 const mapStateToProps = (state) => {
   return {
@@ -40,7 +44,13 @@ const mapStateToProps = (state) => {
 };
 const mapDispatchToProps = (dispatch) => {
   return {
-    getProducts: async () => await getProductsCollection(dispatch),
+    getProducts: () => {
+      dispatch({ type: SET_STATUS_LOADING });
+      getProductsCollection().then((products) => {
+        dispatch({ type: SET_PRODUCTS, payload: products });
+        dispatch({ type: INIT_STATUS });
+      });
+    },
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(Products);
