@@ -1,9 +1,9 @@
 import React from "react";
-import { Button, Form } from "react-bootstrap";
+import { Button, Container, Form } from "react-bootstrap";
 
 function Contact() {
   return (
-    <>
+    <Container>
       <h1 className="p-4">Contactez nous</h1>
       <Form>
         <Form.Group controlId="exampleForm.ControlInput1">
@@ -21,7 +21,7 @@ function Contact() {
           Envoyer
         </Button>
       </Form>
-    </>
+    </Container>
   );
 }
 

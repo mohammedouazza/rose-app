@@ -128,7 +128,7 @@ function AddProduct({ storeProduct }) {
         >
           Re-initialiser
         </Button>
-        <Button variant="primary" type="submit" className="mb-2 submit-button">
+        <Button variant="primary" type="submit" className="mb-2 send-button">
           Ajouter
         </Button>
       </Form>

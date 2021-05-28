@@ -19,7 +19,7 @@ function LongCardForm() {
                 id="floatingInput"
                 placeholder="name@example.com"
               />
-              <label for="floatingInput">Email address</label>
+              <label htmlFor="floatingInput">Email address</label>
             </div>
             <div className="form-floating mb-3">
               <textarea
@@ -27,9 +27,12 @@ function LongCardForm() {
                 placeholder="Message"
                 rows="4"
               />
-              <label for="floatingPassword">Message</label>
+              <label htmlFor="floatingPassword">Message</label>
             </div>
-            <button className="w-100 btn btn-lg btn-primary" type="submit">
+            <button
+              className="w-100 btn btn-lg btn-primary send-button"
+              type="submit"
+            >
               Envoyer
             </button>
           </form>
