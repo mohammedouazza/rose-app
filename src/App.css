@@ -3,6 +3,11 @@
 }
 
 .active {
-  background-color: rgb(235 66 149);
-  border-radius: 5px;
+  font-weight: bold;
+}
+
+.add-product {
+  right: 0;
+  position: fixed;
+  margin-right: 10px;
 }
