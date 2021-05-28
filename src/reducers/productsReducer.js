@@ -1,25 +1,28 @@
-import RoseImg from "../images/rose.jpg";
+import {
+  SET_PRODUCTS,
+  ADD_PRODUCT,
+  INIT_STATUS,
+  SET_STATUS_LOADING,
+} from "../constants/products";
 const initialState = {
-  products: [
-    { name: "Rose originale", price: 20, type: "Eau", img: RoseImg },
-    { name: "Rose originale", price: 20, type: "Eau", img: RoseImg },
-    { name: "Rose originale", price: 20, type: "Eau", img: RoseImg },
-    { name: "Rose originale", price: 20, type: "Eau", img: RoseImg },
-    { name: "Rose originale", price: 20, type: "Eau", img: RoseImg },
-    { name: "Rose originale", price: 20, type: "Eau", img: RoseImg },
-    { name: "Rose originale", price: 20, type: "Eau", img: RoseImg },
-    { name: "Rose originale", price: 20, type: "Eau", img: RoseImg },
-    { name: "Rose originale", price: 20, type: "Eau", img: RoseImg },
-    { name: "Rose originale", price: 20, type: "Eau", img: RoseImg },
-    { name: "Rose originale", price: 20, type: "Eau", img: RoseImg },
-    { name: "Rose originale", price: 20, type: "Eau", img: RoseImg },
-    { name: "Rose originale", price: 20, type: "Eau", img: RoseImg },
-  ],
+  status: "",
+  products: [],
 };
 const productsReducer = (state = initialState, action) => {
   switch (action.type) {
-    case "GET_PRODUCTS":
-      return state.products;
+    case SET_PRODUCTS:
+      state.products = action.payload;
+      return state;
+    case INIT_STATUS:
+      state.status = "";
+      return state;
+    case SET_STATUS_LOADING:
+      state.status = "loading";
+      return state;
+    case ADD_PRODUCT:
+      state.status = "success";
+      state.products.unshift(action.payload);
+      return state;
     default:
       return state;
   }
