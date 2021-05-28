@@ -3,6 +3,11 @@ import { Alert, Button, Container, Form, Image } from "react-bootstrap";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { addProductToCollection } from "../../../back-end/poducts";
+import {
+  ADD_PRODUCT,
+  INIT_STATUS,
+  SET_STATUS_LOADING,
+} from "../../../constants/products";
 import Img from "../../../images/rose.jpg";
 
 function AddProduct({ storeProduct }) {
@@ -43,10 +48,9 @@ function AddProduct({ storeProduct }) {
       type: productType,
       price: productPrice,
       img: productFileImg,
-    }).then(() => {
-      initialiseProduct();
-      setShowMessage(true);
     });
+    initialiseProduct();
+    setShowMessage(true);
   };
 
   const hideMessage = () => {
@@ -140,8 +144,24 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    storeProduct: async (newProduct) =>
-      addProductToCollection(dispatch, newProduct),
+    storeProduct: (newProduct) => {
+      dispatch({ type: SET_STATUS_LOADING });
+      addProductToCollection(newProduct)
+        .then((product) => {
+          dispatch({
+            type: ADD_PRODUCT,
+            payload: {
+              id: product.id,
+              ...newProduct,
+              img: URL.createObjectURL(newProduct.img),
+            },
+          });
+          dispatch({ type: INIT_STATUS });
+        })
+        .catch((error) => {
+          dispatch({ type: INIT_STATUS });
+        });
+    },
   };
 };
 

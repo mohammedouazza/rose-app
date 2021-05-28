@@ -1,9 +1,3 @@
-import {
-  ADD_PRODUCT,
-  INIT_STATUS,
-  SET_PRODUCTS,
-  SET_STATUS_LOADING,
-} from "../constants/products";
 import firebase from "firebase";
 import firebaseConfig from "./firebaseConfig";
 // Required for side-effects
@@ -37,37 +31,28 @@ const mapProducts = async (products) => {
   });
   return newProducts;
 };
-export const getProductsCollection = async (dispatch) => {
-  dispatch({ type: SET_STATUS_LOADING });
+export const getProductsCollection = async () => {
   const products = await productsRef.get();
   let newProducts = await mapProducts(products);
-
-  dispatch({ type: SET_PRODUCTS, payload: newProducts });
-  dispatch({ type: INIT_STATUS });
+  return newProducts;
 };
-export const addProductToCollection = async (dispatch, newProduct) => {
+export const addProductToCollection = async (newProduct) => {
   const newProductCollection = {
     name: newProduct.name,
     price: newProduct.price,
     type: newProduct.type,
   };
-  db.collection("products")
-    .add(newProductCollection)
-    .then((product) => {
-      uploadImage(product.id, newProduct.img)
-        .then((productImg) => {
-          console.log("Document written with ID: ", product.id);
-          dispatch({
-            type: ADD_PRODUCT,
-            payload: {
-              id: product.id,
-              ...newProductCollection,
-              img: URL.createObjectURL(newProduct.img),
-            },
-          });
-        })
-        .catch((error) => {
-          console.error("Error adding document: ", error);
-        });
+  let product = await productsRef.add(newProductCollection);
+  uploadImage(product.id, newProduct.img);
+  return product;
+};
+
+export const deleteProductFromCollection = (product) => {
+  return productsRef
+    .doc(product.id)
+    .delete()
+    .then(() => {
+      const storage = firebase.storage().ref();
+      return storage.child("products/" + product.id + ".jpg").delete();
     });
 };
