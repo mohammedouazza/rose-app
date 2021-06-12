@@ -12,7 +12,6 @@ const uploadImage = async (productId, img) => {
   const productImg = await storage
     .child("products/" + productId + ".jpg")
     .put(img);
-  console.log("img uploaded", productImg);
   return productImg;
 };
 
@@ -44,6 +43,15 @@ export const addProductToCollection = async (newProduct) => {
   };
   let product = await productsRef.add(newProductCollection);
   uploadImage(product.id, newProduct.img);
+  return product;
+};
+
+export const editProductToCollection = async (newProduct) => {
+  console.log(newProduct);
+  let product = await productsRef
+    .doc(newProduct.id)
+    .set({ ...newProduct, img: newProduct.id + ".jpg" });
+  uploadImage(newProduct.id, newProduct.img);
   return product;
 };
 

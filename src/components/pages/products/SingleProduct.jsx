@@ -1,24 +1,24 @@
-import React from "react";
-import { Button, Card } from "react-bootstrap";
+import React, { useState } from "react";
+import { Button, Card, Spinner } from "react-bootstrap";
 import { connect } from "react-redux";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { deleteProductFromCollection } from "../../../back-end/poducts";
-import {
-  DELETE_PRODUCT,
-  INIT_STATUS,
-  SET_STATUS_LOADING,
-} from "../../../constants/products";
+import { DELETE_PRODUCT } from "../../../constants/products";
 
 function SingleProduct({ product, deletePrductStore }) {
   const location = useLocation();
+  const [loading, setLoading] = useState(false);
   const goToProduct = () => {
     if (product.id === "add") {
       location.pathname = "/products/create";
     }
   };
-  const deleteProduct = () => {
+  const deleteProduct = async () => {
     if (window.confirm("Etes-vous sûr de vouloir supprimer ce produit ?")) {
+      setLoading(true);
+      await deleteProductFromCollection(product);
       deletePrductStore(product);
+      setLoading(false);
     }
   };
   return (
@@ -33,6 +33,17 @@ function SingleProduct({ product, deletePrductStore }) {
         <Card.Title>{product.name}</Card.Title>
         {product.price && (
           <Card.Text>
+            {loading && (
+              <>
+                <Spinner
+                  animation="border"
+                  role="status"
+                  className="rose-spinner"
+                />
+                <br />
+              </>
+            )}
+
             <span>
               Prix : <strong>{product.price}</strong>
             </span>
@@ -45,6 +56,11 @@ function SingleProduct({ product, deletePrductStore }) {
         <Button variant="primary" onClick={goToProduct}>
           {product.price ? "Commender" : "Ajouter"}
         </Button>
+        <Link to={"/products/edit/" + product.id}>
+          <Button variant="warning" style={{ marginLeft: 10 }}>
+            Modifier
+          </Button>
+        </Link>
         <Button
           variant="danger"
           onClick={deleteProduct}
@@ -60,11 +76,7 @@ function SingleProduct({ product, deletePrductStore }) {
 const mapDispatchToProps = (dispatch) => {
   return {
     deletePrductStore: (product) => {
-      dispatch({ type: SET_STATUS_LOADING });
-      deleteProductFromCollection(product).then(() => {
-        dispatch({ type: DELETE_PRODUCT, payload: product });
-        dispatch({ type: INIT_STATUS });
-      });
+      return dispatch({ type: DELETE_PRODUCT, payload: product });
     },
   };
 };
