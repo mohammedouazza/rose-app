@@ -12,3 +12,12 @@
   position: fixed;
   margin-right: 10px;
 }
+
+.rose-spinner {
+  color: rgb(249 127 187) !important;
+}
+
+.login-form {
+  padding-top: 25%;
+  margin: auto;
+}

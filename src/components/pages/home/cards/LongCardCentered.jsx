@@ -1,5 +1,6 @@
 import React from "react";
 
+
 function LongCardCentered({ title, body, link, image }) {
   return (
     <div className="px-4 pt-5 my-5 text-center border-bottom">
@@ -7,6 +8,7 @@ function LongCardCentered({ title, body, link, image }) {
       <div className="col-lg-6 mx-auto">
         <p className="lead mb-4">{body}</p>
         <div className="d-grid gap-2 d-sm-flex justify-content-sm-center mb-5">
+          
           <button
             type="button"
             className="btn btn-primary btn-lg px-4 send-button"

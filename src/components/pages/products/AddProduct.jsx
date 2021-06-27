@@ -1,13 +1,16 @@
 import React, { useState } from "react";
-import { Alert, Button, Container, Form, Image } from "react-bootstrap";
+import {
+  Alert,
+  Button,
+  Container,
+  Form,
+  Image,
+  Spinner,
+} from "react-bootstrap";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { addProductToCollection } from "../../../back-end/poducts";
-import {
-  ADD_PRODUCT,
-  INIT_STATUS,
-  SET_STATUS_LOADING,
-} from "../../../constants/products";
+import { ADD_PRODUCT } from "../../../constants/products";
 import Img from "../../../images/rose.jpg";
 
 function AddProduct({ storeProduct }) {
@@ -17,6 +20,12 @@ function AddProduct({ storeProduct }) {
   const [productType, setProductType] = useState("");
   const [productImg, setProductImg] = useState(Img);
   const [productPrice, setProductPrice] = useState(0);
+  const [loading, setLoading] = useState(false);
+  const typeProducts = [
+    { id: 1, name: "Eau" },
+    { id: 2, name: "Huile" },
+  ];
+
   const handleProductName = (e) => {
     hideMessage();
     const name = e.target.value;
@@ -41,16 +50,21 @@ function AddProduct({ storeProduct }) {
     const price = parseFloat(e.target.value);
     setProductPrice(price);
   };
-  const addProduct = (e) => {
+  const addProduct = async (e) => {
     e.preventDefault();
-    storeProduct({
+    const newProduct = {
       name: productName,
       type: productType,
       price: productPrice,
       img: productFileImg,
-    });
+    };
+    setLoading(true);
+    const product = await addProductToCollection(newProduct);
+    console.log(product);
+    storeProduct({ ...newProduct, id: product.id });
     initialiseProduct();
     setShowMessage(true);
+    setLoading(false);
   };
 
   const hideMessage = () => {
@@ -66,6 +80,9 @@ function AddProduct({ storeProduct }) {
   return (
     <Container>
       <h1 className="mt-2 mb-4">Ajouter un produit</h1>
+      {loading && (
+        <Spinner animation="border" role="status" className="rose-spinner" />
+      )}
       {showMessage && (
         <Alert variant="success">
           <Alert.Heading>
@@ -87,11 +104,14 @@ function AddProduct({ storeProduct }) {
         <Form.Group className="mb-2">
           <Form.Label>Type du produit</Form.Label>
           <Form.Control
+            as="select"
             required
-            type="text"
             onChange={(e) => handleProductType(e)}
-            value={productType}
-          />
+          >
+            {typeProducts.map((type) => (
+              <option>{type.name}</option>
+            ))}
+          </Form.Control>
         </Form.Group>
         <Form.Group className="mb-2">
           <Form.Label>Prix</Form.Label>
@@ -145,22 +165,14 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     storeProduct: (newProduct) => {
-      dispatch({ type: SET_STATUS_LOADING });
-      addProductToCollection(newProduct)
-        .then((product) => {
-          dispatch({
-            type: ADD_PRODUCT,
-            payload: {
-              id: product.id,
-              ...newProduct,
-              img: URL.createObjectURL(newProduct.img),
-            },
-          });
-          dispatch({ type: INIT_STATUS });
-        })
-        .catch((error) => {
-          dispatch({ type: INIT_STATUS });
-        });
+      return dispatch({
+        type: ADD_PRODUCT,
+        payload: {
+          id: newProduct.id,
+          ...newProduct,
+          img: URL.createObjectURL(newProduct.img),
+        },
+      });
     },
   };
 };

@@ -1,8 +1,6 @@
 import firebase from "firebase";
-import firebaseConfig from "./firebaseConfig";
 // Required for side-effects
 require("firebase/firestore");
-firebase.initializeApp(firebaseConfig);
 
 const db = firebase.firestore();
 const productsRef = db.collection("products");
@@ -12,7 +10,6 @@ const uploadImage = async (productId, img) => {
   const productImg = await storage
     .child("products/" + productId + ".jpg")
     .put(img);
-  console.log("img uploaded", productImg);
   return productImg;
 };
 
@@ -33,7 +30,9 @@ const mapProducts = async (products) => {
 };
 export const getProductsCollection = async () => {
   const products = await productsRef.get();
+  console.log(products);
   let newProducts = await mapProducts(products);
+  console.log(newProducts);
   return newProducts;
 };
 export const addProductToCollection = async (newProduct) => {
@@ -44,6 +43,15 @@ export const addProductToCollection = async (newProduct) => {
   };
   let product = await productsRef.add(newProductCollection);
   uploadImage(product.id, newProduct.img);
+  return product;
+};
+
+export const editProductToCollection = async (newProduct) => {
+  console.log(newProduct);
+  let product = await productsRef
+    .doc(newProduct.id)
+    .set({ ...newProduct, img: newProduct.id + ".jpg" });
+  uploadImage(newProduct.id, newProduct.img);
   return product;
 };
 
