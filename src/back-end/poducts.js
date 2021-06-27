@@ -1,8 +1,6 @@
 import firebase from "firebase";
-import firebaseConfig from "./firebaseConfig";
 // Required for side-effects
 require("firebase/firestore");
-firebase.initializeApp(firebaseConfig);
 
 const db = firebase.firestore();
 const productsRef = db.collection("products");
@@ -32,7 +30,9 @@ const mapProducts = async (products) => {
 };
 export const getProductsCollection = async () => {
   const products = await productsRef.get();
+  console.log(products);
   let newProducts = await mapProducts(products);
+  console.log(newProducts);
   return newProducts;
 };
 export const addProductToCollection = async (newProduct) => {

@@ -5,6 +5,7 @@ import Products from "../pages/products/Products";
 import Contact from "../pages/contact/Contact";
 import AddProduct from "../pages/products/AddProduct";
 import EditProduct from "../pages/products/EditProduct";
+import PrivatePages from "../pages/admin/PrivatePages";
 
 function Content() {
   return (
@@ -24,6 +25,9 @@ function Content() {
         </Route>
         <Route exact path="/contact">
           <Contact />
+        </Route>
+        <Route exact path="/admin">
+          <PrivatePages />
         </Route>
       </Switch>
     </div>

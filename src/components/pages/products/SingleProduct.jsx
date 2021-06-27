@@ -1,18 +1,20 @@
 import React, { useState } from "react";
 import { Button, Card, Spinner } from "react-bootstrap";
-import { connect } from "react-redux";
-import { Link, useLocation } from "react-router-dom";
+import { connect, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import { deleteProductFromCollection } from "../../../back-end/poducts";
 import { DELETE_PRODUCT } from "../../../constants/products";
+import { Pencil, Trash } from 'react-bootstrap-icons';
 
 function SingleProduct({ product, deletePrductStore }) {
-  const location = useLocation();
+  //const location = useLocation();
   const [loading, setLoading] = useState(false);
-  const goToProduct = () => {
+  /*const goToProduct = () => {
     if (product.id === "add") {
       location.pathname = "/products/create";
     }
-  };
+  };*/
+  const isLoggedIn = useSelector(state => state.admin.loggedIn);
   const deleteProduct = async () => {
     if (window.confirm("Etes-vous sûr de vouloir supprimer ce produit ?")) {
       setLoading(true);
@@ -53,12 +55,9 @@ function SingleProduct({ product, deletePrductStore }) {
             </span>
           </Card.Text>
         )}
-        <Button variant="primary" onClick={goToProduct}>
-          {product.price ? "Commender" : "Ajouter"}
-        </Button>
-        <Link to={"/products/edit/" + product.id}>
+        {isLoggedIn && <><Link to={"/products/edit/" + product.id}>
           <Button variant="warning" style={{ marginLeft: 10 }}>
-            Modifier
+            <Pencil />
           </Button>
         </Link>
         <Button
@@ -66,8 +65,8 @@ function SingleProduct({ product, deletePrductStore }) {
           onClick={deleteProduct}
           style={{ marginLeft: 10 }}
         >
-          Supprimer
-        </Button>
+          <Trash />
+        </Button></> }
       </Card.Body>
     </Card>
   );
