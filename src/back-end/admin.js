@@ -12,6 +12,5 @@ export const loginToFirebase = (email, password) => {
 
 export const logoutFromFirebase = async () => {
   const result = await auth.signOut();
-  console.log(result);
-  return result
+  return result;
 };

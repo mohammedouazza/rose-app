@@ -1,9 +1,5 @@
 import firebase from "firebase";
-// Required for side-effects
-require("firebase/firestore");
-
-const db = firebase.firestore();
-const productsRef = db.collection("products");
+import { productsRef } from "./firebaseDeps";
 
 const uploadImage = async (productId, img) => {
   const storage = firebase.storage().ref();
@@ -30,9 +26,9 @@ const mapProducts = async (products) => {
 };
 export const getProductsCollection = async () => {
   const products = await productsRef.get();
-  console.log(products);
+  //console.log(products);
   let newProducts = await mapProducts(products);
-  console.log(newProducts);
+  //console.log(newProducts);
   return newProducts;
 };
 export const addProductToCollection = async (newProduct) => {
@@ -47,7 +43,7 @@ export const addProductToCollection = async (newProduct) => {
 };
 
 export const editProductToCollection = async (newProduct) => {
-  console.log(newProduct);
+  //console.log(newProduct);
   let product = await productsRef
     .doc(newProduct.id)
     .set({ ...newProduct, img: newProduct.id + ".jpg" });
