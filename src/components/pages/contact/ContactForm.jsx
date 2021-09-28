@@ -24,7 +24,7 @@ function ContactForm() {
     } else {
       setError("");
     }
-    sendContact(infos).then(() => {
+    sendContact(infos).then((resp) => {
       setSuccess("Votre message a été envoyé avec succès!");
       e.target[0].value = "";
       e.target[1].value = "";
