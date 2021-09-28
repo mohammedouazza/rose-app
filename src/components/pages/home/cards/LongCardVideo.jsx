@@ -1,13 +1,14 @@
 import React from "react";
-import FlowerVideo from "../../../../videos/flower.mp4"
+import FlowerVideo from "../../../../videos/flower.mp4";
 
-function LongCardVideo({ title, body, link, image }) {
+function LongCardVideo({ title, body, link }) {
+  const videoWidth = window.outerWidth < 700 ? window.outerWidth - 50 : 700;
   return (
     <div className="container col-xxl-8 px-4 py-5">
       <div className="row flex-lg-row-reverse align-items-center g-5 py-5">
         <div className="col-10 col-sm-8 col-lg-6">
-          <video width="700" controls>
-            <source src={FlowerVideo} type="video/mp4"/>
+          <video width={videoWidth} controls>
+            <source src={FlowerVideo} type="video/mp4" />
           </video>
         </div>
         <div className="col-lg-6">

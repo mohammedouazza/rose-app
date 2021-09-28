@@ -5,7 +5,6 @@ export const sendContact = async (infos) => {
     ...infos,
     createdAt: new Date().getTime(),
   });
-  //console.log(contact);
   return contact;
 };
 
